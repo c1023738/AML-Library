@@ -27,4 +27,9 @@ p{
     display: flex;
     padding: 20px;
     text-align: center;
+    font-weight: bolder;
+}
+li:first-child{
+    font-weight: bolder;
+    font-size: larger;
 }
