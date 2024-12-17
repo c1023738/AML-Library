@@ -74,7 +74,7 @@ export const items = pgTable("aml_item", {
 
 export const reservations = pgTable("aml_reservations", {
   id: serial("id").primaryKey(),
-  itemId: serial("itemId")
+  itemId: integer("itemId") // FIX: Changed to integer to match items.id
     .notNull()
     .references(() => items.id, { onDelete: "cascade" }),
   userId: text("userId")
@@ -83,5 +83,17 @@ export const reservations = pgTable("aml_reservations", {
   startDate: timestamp("startDate", { mode: "date" }).notNull(),
   endDate: timestamp("endDate", { mode: "date" }).notNull(),
 });
+
+// Define relations
+export const reservationRelations = relations(reservations, ({ one }) => ({
+  item: one(items, {
+    fields: [reservations.itemId],
+    references: [items.id],
+  }),
+  user: one(users, {
+    fields: [reservations.userId],
+    references: [users.id],
+  }),
+}));
 
 export type Item = typeof items.$inferSelect;
