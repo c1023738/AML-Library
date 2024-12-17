@@ -3,7 +3,6 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 
-
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -35,7 +34,6 @@ const ContactPage = () => {
         },
         "hD8pRTXUu_AXwtp6-" // Your Email.js Public Key
       )
-
       .then(
         () => {
           setStatus("Message sent successfully!");
@@ -48,15 +46,19 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-2xl font-bold mb-4">Contact Us</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 p-4">
+      {/* Page Title */}
+      <h1 className="text-4xl font-bold mb-6 text-gray-800">Contact Us</h1>
+
+      {/* Contact Form */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md"
+        className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-2xl"
       >
-        <div className="mb-4">
+        {/* Name Field */}
+        <div className="mb-6">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-600 text-lg font-semibold mb-2"
             htmlFor="name"
           >
             Name
@@ -67,14 +69,16 @@ const ContactPage = () => {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Your Name"
+            className="w-full border-2 border-gray-300 rounded-lg p-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Enter your name"
             required
           />
         </div>
-        <div className="mb-4">
+
+        {/* Email Field */}
+        <div className="mb-6">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-600 text-lg font-semibold mb-2"
             htmlFor="email"
           >
             Email
@@ -85,14 +89,16 @@ const ContactPage = () => {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Your Email"
+            className="w-full border-2 border-gray-300 rounded-lg p-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Enter your email"
             required
           />
         </div>
-        <div className="mb-4">
+
+        {/* Message Field */}
+        <div className="mb-6">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-600 text-lg font-semibold mb-2"
             htmlFor="message"
           >
             Message
@@ -102,21 +108,28 @@ const ContactPage = () => {
             name="message"
             value={formData.message}
             onChange={handleInputChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Your Message"
+            className="w-full border-2 border-gray-300 rounded-lg p-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Type your message here"
+            rows={6}
             required
-          />
+          ></textarea>
         </div>
-        <div className="flex items-center justify-between">
+
+        {/* Submit Button */}
+        <div className="flex justify-center">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold text-lg py-3 px-6 rounded-lg shadow-lg transition-all duration-300"
           >
             Send Message
           </button>
         </div>
       </form>
-      {status && <p className="text-sm text-gray-700">{status}</p>}
+
+      {/* Status Message */}
+      {status && (
+        <p className="mt-6 text-lg font-medium text-gray-700">{status}</p>
+      )}
     </div>
   );
 };
