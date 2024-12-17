@@ -31,7 +31,6 @@ export function ItemCard({ item }: { item: Item }) {
     formData.append("endDate", endDate1);
 
     await createReservation(formData);
-    
   };
 
   return (
@@ -39,7 +38,7 @@ export function ItemCard({ item }: { item: Item }) {
       <Image src="/empty.svg" width="200" height="200" alt="Package" />
       <h2 className="text-xl font-bold">{item.name}</h2>
 
-      <Dialog>
+      {/* <Dialog>
         <DialogTrigger asChild>
           <Button variant="outline">Reserve</Button>
         </DialogTrigger>
@@ -52,7 +51,7 @@ export function ItemCard({ item }: { item: Item }) {
           </DialogHeader>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Start Date */}
+
             <div className="grid gap-2">
               <Label htmlFor="start-date">Start Date</Label>
               <Input
@@ -63,7 +62,7 @@ export function ItemCard({ item }: { item: Item }) {
               />
             </div>
 
-            {/* End Date */}
+
             <div className="grid gap-2">
               <Label htmlFor="end-date">End Date</Label>
               <Input
@@ -74,7 +73,7 @@ export function ItemCard({ item }: { item: Item }) {
               />
             </div>
 
-            {/* Submit and Close Buttons */}
+
             <DialogFooter className="sm:justify-start mt-4 space-x-2">
               <Button type="submit">Submit</Button>
               <DialogClose asChild>
@@ -85,7 +84,7 @@ export function ItemCard({ item }: { item: Item }) {
             </DialogFooter>
           </form>
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
     </div>
   );
 }
