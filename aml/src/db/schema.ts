@@ -65,11 +65,15 @@ export const verificationTokens = pgTable(
 
 export const items = pgTable("aml_item", {
   id: serial("id").primaryKey(),
-  userId: text("userId")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  name: text("name").notNull(),
-  price: integer("price").notNull(),
+  name: text("name").notNull(), // General name of the item
+  price: integer("price").notNull(), // Price in cents or units
+  image: text("image"), // URL for the item image
+  type: text("type").notNull(), // Type of the item: 'book', 'game', 'dvd', 'cd'
+  // Additional details for books, games, DVDs, and CDs
+  author: text("author"), // Author (for books)
+  publisher: text("publisher"), // Publisher (for games, DVDs, or CDs)
+  releaseDate: timestamp("release_date", { mode: "date" }), // Release date
+  description: text("description"), // General description
 });
 
 export const reservations = pgTable("aml_reservations", {

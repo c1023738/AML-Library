@@ -23,7 +23,6 @@ export async function createItemAction(formData: FormData) {
   await database.insert(items).values({
     name: formData.get("name") as string,
     price: priceAsCents,
-    userId: user.id,
   });
   redirect("/");
 }
