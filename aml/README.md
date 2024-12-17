@@ -8,4 +8,4 @@ docker compose up (Have docker desktop open)
 
 Studio
 
-npm push db:studio
+npm run db:studio
