@@ -6,8 +6,9 @@ import { Input } from "@/components/ui/input";
 import { database } from "@/db/database";
 
 import { revalidatePath } from "next/cache";
-import { ItemCard } from "../item-card";
+
 import { pageTitleStyles } from "@/styles";
+import { ItemCard } from "../item-card";
 
 export default async function HomePage() {
   const session = await auth();

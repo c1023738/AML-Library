@@ -4,14 +4,10 @@ import Link from "next/link";
 
 export function ItemCard({ item }: { item: Item }) {
   return (
-    <div key={item.id} className="border p-8 rounded-xl gap-8 space-y-2">
-      <h2 className="" text-xl font-bold>
-        {item.name}
-      </h2>
-      <p className="text-lg">Price: £{item.price / 100}</p>
-
+    <div key={item.id} className="">
+      <h2 className="text-xl font-bold">{item.name}</h2>
       <Button asChild>
-        <Link href={`/items/${item.id}`}>Place Reservation</Link>
+        <Link href={`/items/${item.id}`}>Reserve</Link>
       </Button>
     </div>
   );
