@@ -7,15 +7,15 @@ footer{
     display: flex;
     width:100%;
     background-color: lightgrey;
-    height: fit-content;
     flex: 1 1 1;
+    float: bottom;
+    bottom: 0;
 }
 ul{
     display: flex;
     flex-direction: column;
     width: 33%;
     text-align: center;
-
 }
 #leftList{
     float: left;

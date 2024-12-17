@@ -1,12 +1,14 @@
 import Image from "next/image";
 
 export default function Home() {
+  
   return (
+    <>
     <div className="min-h-screen flex flex-col">
       {/* Banner */}
       <header
         className="w-full h-96 bg-cover bg-center relative"
-        style={{ backgroundImage: "url('/externalbanner.jpg')" }}
+        style={{ backgroundImage: "url('/externalbanner.jpg')"}}
       >
         <div className="absolute inset-0 flex items-center justify-center">
           <h1
@@ -97,6 +99,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </div>
+    </div>  
+    </>
   );
 }
