@@ -17,7 +17,7 @@ export const users = pgTable("aml_user", {
   email: text("email").notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
-  type: text("type").notNull().default("Library Member"),
+  role: text("role").notNull().default("Library Member"),
 });
 
 export const accounts = pgTable(
