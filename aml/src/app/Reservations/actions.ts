@@ -2,31 +2,66 @@
 
 import { auth } from "@/auth";
 import { database } from "@/db/database";
-import { reservations } from "@/db/schema";
-import { revalidatePath } from "next/cache";
+import { items, reservations } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
 export async function createReservation(formData: FormData) {
   const session = await auth();
 
-  if (!session || !session.user || !session.user.id) {
+  if (!session) {
     throw new Error("Unauthorized");
   }
 
-  const userId = session.user.id;
-  const itemId = Number(formData.get("itemId")); // Parse itemId as a number
-  const startDate = new Date(formData.get("startDate") as string);
-  const endDate = new Date(formData.get("endDate") as string);
+  const user = session.user;
 
-  // Insert the reservation into the database
-  await database.insert(reservations).values({
-    itemId,
-    userId,
-    startDate,
-    endDate,
+  if (!user || !user.id) {
+    throw new Error("Unauthenticated");
+  }
+
+  // Get the itemId and ensure it's a number
+  const itemId = formData.get("itemId") as string;
+  const itemIdNumber = Number(itemId); // Convert itemId to a number
+
+  if (isNaN(itemIdNumber)) {
+    throw new Error("Invalid item ID");
+  }
+
+  const startDate = formData.get("startDate") as string;
+  const endDate = formData.get("endDate") as string;
+
+  // Check if the item is already reserved for the given dates
+  const existingReservation = await database.query.reservations.findFirst({
+    where: eq(reservations.itemId, itemIdNumber), // Use the number here
   });
 
-  // Revalidate the page and redirect to the home page
-  revalidatePath("/");
-  redirect("/");
+  // If there is an existing reservation, check if it conflicts with the new reservation
+  if (existingReservation) {
+    const existingStartDate = new Date(existingReservation.startDate);
+    const existingEndDate = new Date(existingReservation.endDate);
+
+    const newStartDate = new Date(startDate);
+    const newEndDate = new Date(endDate);
+
+    // Check if the new reservation overlaps with the existing one
+    if (
+      (newStartDate >= existingStartDate && newStartDate < existingEndDate) ||
+      (newEndDate > existingStartDate && newEndDate <= existingEndDate) ||
+      (newStartDate <= existingStartDate && newEndDate >= existingEndDate)
+    ) {
+      throw new Error(
+        "This item is already reserved during the selected dates."
+      );
+    }
+  }
+
+  // Insert the new reservation if no conflicts
+  await database.insert(reservations).values({
+    itemId: itemIdNumber, // Use the number here
+    userId: user.id,
+    startDate: new Date(startDate),
+    endDate: new Date(endDate),
+  });
+
+  redirect("/"); // Redirect after successful reservation
 }
