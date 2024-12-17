@@ -1,7 +1,6 @@
 import './Footer.css';
 export async function Footer() {
   return (
-    <div>
     <footer>
       <p>  Advanced Media Library {new Date().getFullYear()} &copy;</p>
       <ul id="leftList">
@@ -23,6 +22,5 @@ export async function Footer() {
           <li><a href="#">LinkedIn</a></li>
       </ul>
     </footer>
-  </div>
   );
 }

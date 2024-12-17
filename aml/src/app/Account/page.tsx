@@ -23,7 +23,7 @@ export default async function AccountPage() {
   const hasReservations = userReservations.length > 0;
 
   return (
-    <main className="space-y-8">
+    <div className="space-y-8">
       <h1 className={pageTitleStyles}>My Reservations</h1>
 
       {hasReservations ? (
@@ -35,6 +35,6 @@ export default async function AccountPage() {
       ) : (
         <EmptyState/>
       )}
-    </main>
+    </div>
   );
 }
