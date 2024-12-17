@@ -5,15 +5,11 @@ import { database } from "@/db/database";
 import { accounts, sessions, users, verificationTokens } from "@/db/schema";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  adapter: DrizzleAdapter(database, {
+    usersTable: users,
+    accountsTable: accounts as any,
+    sessionsTable: sessions,
+    verificationTokensTable: verificationTokens,
+  }),
   providers: [Google],
 });
-
-// export const { handlers, auth } = NextAuth({
-//   adapter: DrizzleAdapter(database, {
-//     usersTable: users,
-//     accountsTable: accounts as any,
-//     sessionsTable: sessions,
-//     verificationTokensTable: verificationTokens,
-//   }),
-//   providers: [Google],
-// });

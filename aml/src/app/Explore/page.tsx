@@ -19,6 +19,7 @@ export default async function HomePage() {
         {allItems.map((item) => (
           <div key={item.id} className="border p-8 rounded-xl gap-8">
             {item.name}
+            Price: £{item.Price / 100}
           </div>
         ))}
       </div>

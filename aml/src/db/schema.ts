@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   boolean,
   integer,
@@ -8,6 +9,7 @@ import {
   timestamp,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "next-auth/adapters";
+
 export const users = pgTable("aml_user", {
   id: text("id")
     .primaryKey()
@@ -62,13 +64,34 @@ export const verificationTokens = pgTable(
   })
 );
 
-export const reservations = pgTable("aml_reservations", {
-  id: serial("id").primaryKey(),
-});
 export const items = pgTable("aml_items", {
   id: serial("id").primaryKey(),
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   name: text("name").notNull(),
+  Price: integer("startingPrice").notNull().default(0),
 });
+
+export const authenticators = pgTable(
+  "authenticator",
+  {
+    credentialID: text("credentialID").notNull().unique(),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    providerAccountId: text("providerAccountId").notNull(),
+    credentialPublicKey: text("credentialPublicKey").notNull(),
+    counter: integer("counter").notNull(),
+    credentialDeviceType: text("credentialDeviceType").notNull(),
+    credentialBackedUp: boolean("credentialBackedUp").notNull(),
+    transports: text("transports"),
+  },
+  (authenticator) => ({
+    compositePK: primaryKey({
+      columns: [authenticator.userId, authenticator.credentialID],
+    }),
+  })
+);
+
+export type Item = typeof items.$inferSelect;
