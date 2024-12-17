@@ -72,15 +72,16 @@ export const items = pgTable("aml_item", {
   price: integer("price").notNull(),
 });
 
-export const reservations = pgTable("aml_bids", {
+export const reservations = pgTable("aml_reservations", {
   id: serial("id").primaryKey(),
-  amount: integer("amount").notNull(),
   itemId: serial("itemId")
     .notNull()
     .references(() => items.id, { onDelete: "cascade" }),
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
+  startDate: timestamp("startDate", { mode: "date" }).notNull(),
+  endDate: timestamp("endDate", { mode: "date" }).notNull(),
 });
 
 export type Item = typeof items.$inferSelect;
