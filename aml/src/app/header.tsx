@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 import { SignIn } from "@/components/sign-in";
-
 import { SignOut } from "@/components/sign-out";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -21,9 +20,14 @@ export async function Header() {
             <Button variant="link" asChild>
               <Link href="/Explore">Explore</Link>
             </Button>
-            <Button variant="link" asChild>
-              <Link href="/Account">Account</Link>
-            </Button>
+
+            {/* Conditionally show "Account" button if logged in */}
+            {session && (
+              <Button variant="link" asChild>
+                <Link href="/Account">Account</Link>
+              </Button>
+            )}
+
             <Button variant="link" asChild>
               <Link href="/Support">Support</Link>
             </Button>
