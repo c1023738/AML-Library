@@ -31,6 +31,7 @@ export function ItemCard({ item }: { item: Item }) {
     formData.append("endDate", endDate1);
 
     await createReservation(formData);
+    
   };
 
   return (

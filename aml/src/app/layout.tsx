@@ -4,6 +4,7 @@ import "./globals.css";
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Header } from "./header";
+import { Footer } from "./footer";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({
       >
         <Header />
         <div className="container mx-auto py-12">{children}</div>
+        <Footer />
       </body>
     </html>
   );
