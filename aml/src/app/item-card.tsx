@@ -32,59 +32,57 @@ export function ItemCard({ item }: { item: Item }) {
 
     await createReservation(formData);
   };
-
+  const imgUrl = item.image ?? "/not-found.svg";
   return (
     <div key={item.id} className="border p-8 rounded-xl space-y-2">
-      <Image src="/empty.svg" width="200" height="200" alt="Package" />
+      <Image src={imgUrl} alt="Item Image" width="200" height="200" />
       <h2 className="text-xl font-bold">{item.name}</h2>
-
-      {/* <Dialog>
-        <DialogTrigger asChild>
-          <Button variant="outline">Reserve</Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>{item.name}</DialogTitle>
-            <DialogDescription>
-              Select the start and end dates for the reservation.
-            </DialogDescription>
-          </DialogHeader>
-
-          <form onSubmit={handleSubmit} className="space-y-4">
-
-            <div className="grid gap-2">
-              <Label htmlFor="start-date">Start Date</Label>
-              <Input
-                id="start-date"
-                type="date"
-                value={startDate1}
-                onChange={(e) => setStartDate1(e.target.value)}
-              />
-            </div>
-
-
-            <div className="grid gap-2">
-              <Label htmlFor="end-date">End Date</Label>
-              <Input
-                id="end-date"
-                type="date"
-                value={endDate1}
-                onChange={(e) => setEndDate1(e.target.value)}
-              />
-            </div>
-
-
-            <DialogFooter className="sm:justify-start mt-4 space-x-2">
-              <Button type="submit">Submit</Button>
-              <DialogClose asChild>
-                <Button type="button" variant="secondary">
-                  Close
-                </Button>
-              </DialogClose>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog> */}
     </div>
+
+    // {/* <Dialog>
+    //   <DialogTrigger asChild>
+    //     <Button variant="outline">Reserve</Button>
+    //   </DialogTrigger>
+    //   <DialogContent className="sm:max-w-md">
+    //     <DialogHeader>
+    //       <DialogTitle>{item.name}</DialogTitle>
+    //       <DialogDescription>
+    //         Select the start and end dates for the reservation.
+    //       </DialogDescription>
+    //     </DialogHeader>
+
+    //     <form onSubmit={handleSubmit} className="space-y-4">
+
+    //       <div className="grid gap-2">
+    //         <Label htmlFor="start-date">Start Date</Label>
+    //         <Input
+    //           id="start-date"
+    //           type="date"
+    //           value={startDate1}
+    //           onChange={(e) => setStartDate1(e.target.value)}
+    //         />
+    //       </div>
+
+    //       <div className="grid gap-2">
+    //         <Label htmlFor="end-date">End Date</Label>
+    //         <Input
+    //           id="end-date"
+    //           type="date"
+    //           value={endDate1}
+    //           onChange={(e) => setEndDate1(e.target.value)}
+    //         />
+    //       </div>
+
+    //       <DialogFooter className="sm:justify-start mt-4 space-x-2">
+    //         <Button type="submit">Submit</Button>
+    //         <DialogClose asChild>
+    //           <Button type="button" variant="secondary">
+    //             Close
+    //           </Button>
+    //         </DialogClose>
+    //       </DialogFooter>
+    //     </form>
+    //   </DialogContent>
+    // </Dialog> */}
   );
 }
