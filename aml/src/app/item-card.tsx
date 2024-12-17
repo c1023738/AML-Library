@@ -8,7 +8,7 @@ export function ItemCard({ item }: { item: Item }) {
       <h2 className="" text-xl font-bold>
         {item.name}
       </h2>
-      <p className="text-lg">Price: £{item.startingPrice / 100}</p>
+      <p className="text-lg">Price: £{item.price / 100}</p>
 
       <Button asChild>
         <Link href={`/items/${item.id}`}>Place Reservation</Link>

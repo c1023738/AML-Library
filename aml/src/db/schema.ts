@@ -69,7 +69,7 @@ export const items = pgTable("aml_item", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   name: text("name").notNull(),
-  startingPrice: integer("startingPrice").notNull(),
+  price: integer("price").notNull(),
 });
 
 export const reservations = pgTable("aml_bids", {
