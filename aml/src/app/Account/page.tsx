@@ -1,37 +1,39 @@
 import { auth } from "@/auth";
-import { ItemCard } from "../item-card";
-import { items } from "@/db/schema";
 import { database } from "@/db/database";
+import { reservations, items } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { ItemCard } from "../item-card";
 import { EmptyState } from "./empty-state";
 import { pageTitleStyles } from "@/styles";
 
 export default async function AccountPage() {
   const session = await auth();
-  if (!session || !session.user) {
-    throw new Error("Unauth");
+  if (!session || !session.user || !session.user.id) {
+    throw new Error("Unauthorized");
   }
-  if (!session.user) {
-    throw new Error("Unauth");
-  }
-  const allItems = await database.query.items.findMany({
-    where: eq(items.userId, session.user.id!),
+
+  // Fetch the reservations for the logged-in user
+  const userReservations = await database.query.reservations.findMany({
+    where: eq(reservations.userId, session.user.id),
+    with: {
+      item: true, // Join with the items table to fetch item details
+    },
   });
 
-  const hasItems = allItems.length > 0;
+  const hasReservations = userReservations.length > 0;
 
   return (
     <main className="space-y-8">
-      <h1 className={pageTitleStyles}>Add Item</h1>
+      <h1 className={pageTitleStyles}>My Reservations</h1>
 
-      {hasItems ? (
+      {hasReservations ? (
         <div className="grid grid-cols-4 gap-8">
-          {allItems.map((item) => (
-            <ItemCard key={item.id} item={item} />
+          {userReservations.map((reservation) => (
+            <ItemCard key={reservation.id} item={reservation.item} />
           ))}
         </div>
       ) : (
-        <EmptyState />
+        <EmptyState/>
       )}
     </main>
   );
