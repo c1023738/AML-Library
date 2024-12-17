@@ -1,22 +1,14 @@
-import { auth } from "@/auth";
-import { SignIn } from "@/components/sign-in";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { database } from "@/db/database";
-
-import { revalidatePath } from "next/cache";
+import { pageTitleStyles } from "@/styles";
 import { createItem } from "./actions";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default async function CreatePage() {
-  const session = await auth();
-  const allItems = await database.query.items.findMany();
-
   return (
-    <main className="container mx-auto py-12 space-y-8">
-      <h1 className="text-4xl font-bold">Add Item</h1>
+    <main>
+      <h1 className={pageTitleStyles}>Add Item</h1>
       <form
-        className=" flex flex-col border p-8 rounded-xl space-y-4 max-w-md"
+        className="flex flex-col border p-8 rounded-xl space-y-4 max-w-md"
         action={createItem}
       >
         <Input
@@ -28,14 +20,11 @@ export default async function CreatePage() {
         <Input
           required
           className="max-w-md"
-          name="Price"
+          name="startPrice"
           type="number"
-          step="0.1"
           placeholder="Name Your Item"
         />
-        <Button className="self-end" type="submit">
-          Post Item
-        </Button>
+        <Button className="self-end" type="submit"></Button>
       </form>
     </main>
   );

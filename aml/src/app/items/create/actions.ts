@@ -4,6 +4,7 @@ import { database } from "@/db/database";
 import { items } from "@/db/schema";
 import { error } from "console";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function createItem(formData: FormData) {
   const session = await auth();
@@ -17,13 +18,12 @@ export async function createItem(formData: FormData) {
     throw new Error("Unaaauthorized");
   }
 
-  const Price = formData.get("Price") as string;
-  const priceAsCents = parseFloat(Price) * 100;
-
+  const startingPrice = formData.get("startingPrice") as string;
+  const priceAsCents = Math.floor(parseFloat(startingPrice) * 100);
   await database.insert(items).values({
     name: formData.get("name") as string,
-    Price: priceAsCents,
+    startingPrice: priceAsCents,
     userId: user.id,
   });
-  revalidatePath("/");
+  redirect("/");
 }

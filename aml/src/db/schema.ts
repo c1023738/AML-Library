@@ -1,6 +1,5 @@
 import { relations } from "drizzle-orm";
 import {
-  boolean,
   integer,
   pgTable,
   primaryKey,
@@ -64,34 +63,24 @@ export const verificationTokens = pgTable(
   })
 );
 
-export const items = pgTable("aml_items", {
+export const items = pgTable("aml_item", {
   id: serial("id").primaryKey(),
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   name: text("name").notNull(),
-  Price: integer("startingPrice").notNull().default(0),
+  startingPrice: integer("startingPrice").notNull(),
 });
 
-export const authenticators = pgTable(
-  "authenticator",
-  {
-    credentialID: text("credentialID").notNull().unique(),
-    userId: text("userId")
-      .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
-    providerAccountId: text("providerAccountId").notNull(),
-    credentialPublicKey: text("credentialPublicKey").notNull(),
-    counter: integer("counter").notNull(),
-    credentialDeviceType: text("credentialDeviceType").notNull(),
-    credentialBackedUp: boolean("credentialBackedUp").notNull(),
-    transports: text("transports"),
-  },
-  (authenticator) => ({
-    compositePK: primaryKey({
-      columns: [authenticator.userId, authenticator.credentialID],
-    }),
-  })
-);
+export const reservations = pgTable("aml_bids", {
+  id: serial("id").primaryKey(),
+  amount: integer("amount").notNull(),
+  itemId: serial("itemId")
+    .notNull()
+    .references(() => items.id, { onDelete: "cascade" }),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+});
 
 export type Item = typeof items.$inferSelect;
