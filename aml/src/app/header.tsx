@@ -15,16 +15,16 @@ export async function Header() {
     <div className="bg-gray-100 border-b py-6">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center gap-8">
-          <Link href="/">
-            <Image src="/Logo.png" alt="Logo" width={100} height={100} />
-          </Link>
-          <span className="font-bold text-xl">Advanced Media Library</span>
+          <div className="flex items-center space-x-4">
+            <Link href="/" className="flex items-center">
+              <Image src="/Logo.png" alt="Logo" width={100} height={100} />
+              <span className="font-bold text-xl">Advanced Media Library</span>
+            </Link>
+          </div>
           <div>
             <Button variant="link" asChild>
               <Link href="/Explore">Explore</Link>
             </Button>
-
-
 
             {session && (
               <Button variant="link" asChild>
@@ -36,7 +36,6 @@ export async function Header() {
               <Link href="/Support">Support</Link>
             </Button>
 
-       
             {userRole === "admin" && (
               <Button variant="link" asChild>
                 <Link href="/items/create">Add Item</Link>

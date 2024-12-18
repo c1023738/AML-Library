@@ -47,6 +47,7 @@ const ContactPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 p-4">
+      <title>Support</title>
       {/* Page Title */}
       <h1 className="text-4xl font-bold mb-6 text-gray-800">Contact Us</h1>
 

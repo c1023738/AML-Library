@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 export default async function CreatePage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50">
+      <title>Add Item</title>
       <div className="w-full max-w-lg bg-white shadow-lg rounded-xl p-8">
         {/* Page Title */}
         <h1 className="text-3xl font-semibold text-center mb-6 text-gray-800">
@@ -13,10 +14,7 @@ export default async function CreatePage() {
         </h1>
 
         {/* Form */}
-        <form
-          className="flex flex-col space-y-4"
-          action={createItemAction}
-        >
+        <form className="flex flex-col space-y-4" action={createItemAction}>
           {/* Item Name */}
           <div>
             <label className="block text-gray-600 mb-1">Item Name</label>
@@ -72,7 +70,9 @@ export default async function CreatePage() {
 
           {/* Author */}
           <div>
-            <label className="block text-gray-600 mb-1">Author (Optional)</label>
+            <label className="block text-gray-600 mb-1">
+              Author (Optional)
+            </label>
             <Input
               name="author"
               placeholder="Enter author name"
@@ -94,12 +94,7 @@ export default async function CreatePage() {
           {/* Release Date */}
           <div>
             <label className="block text-gray-600 mb-1">Release Date</label>
-            <Input
-              required
-              name="releaseDate"
-              type="date"
-              className="w-full"
-            />
+            <Input required name="releaseDate" type="date" className="w-full" />
           </div>
 
           {/* Description */}

@@ -59,6 +59,7 @@ export default async function HomePage() {
 
   return (
     <main className="space-y-8">
+      <title>Explore</title>
       <h1 className={pageTitleStyles}>Items List</h1>
 
       <div className="grid grid-cols-4 gap-4">
