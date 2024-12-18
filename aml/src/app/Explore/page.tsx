@@ -17,7 +17,7 @@ export default async function HomePage() {
       {
         name: "The Great Gatsby",
         price: 1500, // Price in cents
-        image: "https://example.com/images/great-gatsby.jpg",
+        image: "/images/great-gatsby.jpg",
         type: "book",
         author: "F. Scott Fitzgerald",
         publisher: "Scribner",
@@ -27,7 +27,7 @@ export default async function HomePage() {
       {
         name: "The Last of Us Part II",
         price: 5999,
-        image: "https://example.com/images/last-of-us-2.jpg",
+        image: "/images/last-of-us-2.jpg",
         type: "game",
         publisher: "Naughty Dog",
         releaseDate: new Date("2020-06-19"),
@@ -36,7 +36,7 @@ export default async function HomePage() {
       {
         name: "Inception",
         price: 1999,
-        image: "https://example.com/images/inception.jpg",
+        image: "/images/inception.jpg",
         type: "dvd",
         publisher: "Warner Bros",
         releaseDate: new Date("2010-07-16"),
@@ -45,7 +45,7 @@ export default async function HomePage() {
       {
         name: "Abbey Road",
         price: 1299,
-        image: "https://example.com/images/abbey-road.jpg",
+        image: "/images/abbey-road.jpg",
         type: "cd",
         publisher: "Apple Records",
         releaseDate: new Date("1969-09-26"),
