@@ -24,7 +24,6 @@ export default async function AccountPage() {
 
   return (
     <div className="space-y-8">
-      <title>Account</title>
       <h1 className={pageTitleStyles}>My Reservations</h1>
 
       {hasReservations ? (
@@ -34,7 +33,7 @@ export default async function AccountPage() {
           ))}
         </div>
       ) : (
-        <EmptyState />
+        <EmptyState/>
       )}
     </div>
   );
