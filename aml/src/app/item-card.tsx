@@ -23,6 +23,9 @@ export function ItemCard({ item }: { item: Item }) {
   const [endDate, setEndDate] = useState("");
   const [error, setError] = useState(""); // For displaying error messages
 
+  // Get today's date in YYYY-MM-DD format
+  const today = new Date().toISOString().split("T")[0];
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -48,12 +51,10 @@ export function ItemCard({ item }: { item: Item }) {
       alert("Reservation created successfully!");
     } catch (err: unknown) {
       if (err instanceof Error) {
-        // Now TypeScript knows `err` is an instance of `Error`, so you can access `message`.
         setError(
           err.message || "An error occurred while creating the reservation."
         );
       } else {
-        // Fallback in case the error is not an instance of `Error`.
         setError("An unknown error occurred.");
       }
     }
@@ -88,6 +89,7 @@ export function ItemCard({ item }: { item: Item }) {
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
+                min={today} // Prevent selecting a date before today
                 required
               />
             </div>
@@ -98,6 +100,7 @@ export function ItemCard({ item }: { item: Item }) {
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
+                min={startDate || today} // Prevent selecting a date before the start date
                 required
               />
             </div>
