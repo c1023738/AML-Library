@@ -1,12 +1,12 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Item } from "@/db/schema";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
-import { useState } from "react";
-import { createReservation } from "@/app/Reservations/actions";
+import { createOrUpdateReservation } from "@/app/Reservations/actions";
 import {
   Dialog,
   DialogClose,
@@ -18,9 +18,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-export function ItemCard({ item }: { item: Item }) {
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+export function ItemCard({
+  item,
+  existingReservation,
+}: {
+  item: Item;
+  existingReservation: { startDate: string; endDate: string } | null;
+}) {
+  const [startDate, setStartDate] = useState(
+    existingReservation?.startDate || ""
+  );
+  const [endDate, setEndDate] = useState(existingReservation?.endDate || "");
   const [error, setError] = useState(""); // For displaying error messages
 
   // Get today's date in YYYY-MM-DD format
@@ -47,8 +55,8 @@ export function ItemCard({ item }: { item: Item }) {
     formData.append("endDate", endDate);
 
     try {
-      await createReservation(formData);
-      alert("Reservation created successfully!");
+      await createOrUpdateReservation(formData);
+      alert("Reservation updated successfully!");
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(
@@ -74,7 +82,10 @@ export function ItemCard({ item }: { item: Item }) {
         </DialogTrigger>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Reserve {item.name}</DialogTitle>
+            <DialogTitle>
+              {existingReservation ? "Update Reservation" : "Reserve"}{" "}
+              {item.name}
+            </DialogTitle>
             <DialogDescription>
               Enter the reservation details below.
             </DialogDescription>

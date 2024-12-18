@@ -6,7 +6,7 @@ import { items, reservations } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
-export async function createReservation(formData: FormData) {
+export async function createOrUpdateReservation(formData: FormData) {
   const session = await auth();
 
   if (!session) {
@@ -30,9 +30,10 @@ export async function createReservation(formData: FormData) {
   const startDate = formData.get("startDate") as string;
   const endDate = formData.get("endDate") as string;
 
-  // Check if the item is already reserved for the given dates
+  // Check if the user already has a reservation for the item
   const existingReservation = await database.query.reservations.findFirst({
-    where: eq(reservations.itemId, itemIdNumber), // Use the number here
+    where:
+      eq(reservations.itemId, itemIdNumber) && eq(reservations.userId, user.id),
   });
 
   // If there is an existing reservation, check if it conflicts with the new reservation
@@ -53,15 +54,24 @@ export async function createReservation(formData: FormData) {
         "This item is already reserved during the selected dates."
       );
     }
-  }
 
-  // Insert the new reservation if no conflicts
-  await database.insert(reservations).values({
-    itemId: itemIdNumber, // Use the number here
-    userId: user.id,
-    startDate: new Date(startDate),
-    endDate: new Date(endDate),
-  });
+    // Update the existing reservation
+    await database
+      .update(reservations)
+      .set({
+        startDate: new Date(startDate),
+        endDate: new Date(endDate),
+      })
+      .where(eq(reservations.id, existingReservation.id));
+  } else {
+    // Insert the new reservation if no conflicts
+    await database.insert(reservations).values({
+      itemId: itemIdNumber, // Use the number here
+      userId: user.id,
+      startDate: new Date(startDate),
+      endDate: new Date(endDate),
+    });
+  }
 
   redirect("/"); // Redirect after successful reservation
 }
