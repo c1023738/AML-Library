@@ -85,7 +85,7 @@ export function ItemCard({
           </Button>
         </DialogTrigger>
 
-        {/* Reservation Dialog */}
+
         <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto p-4">
           <DialogHeader>
             <DialogTitle className="text-lg font-semibold text-center">
@@ -97,7 +97,7 @@ export function ItemCard({
             </DialogDescription>
           </DialogHeader>
 
-          {/* Image */}
+
           <div className="flex justify-center my-2">
             <Image
               src={imgUrl}
@@ -108,7 +108,7 @@ export function ItemCard({
             />
           </div>
 
-          {/* Item Details */}
+
           <div className="space-y-1 text-sm text-gray-700 mb-2 leading-tight">
             <p className="mb-1">
               <span className="font-medium">Type:</span> {item.type}

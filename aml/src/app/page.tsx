@@ -5,7 +5,6 @@ export default function Home() {
     <>
       <title>Home Page</title>
       <div className="min-h-screen flex flex-col">
-        {/* Banner */}
         <header
           className="w-full h-96 bg-cover bg-center relative"
           style={{ backgroundImage: "url('/externalbanner.jpg')" }}
@@ -20,17 +19,13 @@ export default function Home() {
           </div>
         </header>
 
-        {/* Modern section below the banner */}
         <section className="flex-1 p-8 bg-gray-100">
           <div className="max-w-screen-xl mx-auto">
-            {/* Big Title */}
             <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
               What We Offer
             </h2>
 
-            {/* Categories Section */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-              {/* Books Section */}
               <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform">
                 <div className="p-6">
                   <h3 className="text-2xl font-semibold text-gray-800 mb-4">
@@ -53,7 +48,6 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Digital Books Section */}
               <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform">
                 <div className="p-6">
                   <h3 className="text-2xl font-semibold text-gray-800 mb-4">
@@ -75,7 +69,6 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Videos Section */}
               <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform">
                 <div className="p-6">
                   <h3 className="text-2xl font-semibold text-gray-800 mb-4">

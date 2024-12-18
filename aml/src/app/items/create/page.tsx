@@ -8,14 +8,14 @@ export default async function CreatePage() {
     <main className="min-h-screen flex items-center justify-center bg-gray-50">
       <title>Add Item</title>
       <div className="w-full max-w-lg bg-white shadow-lg rounded-xl p-8">
-        {/* Page Title */}
+
         <h1 className="text-3xl font-semibold text-center mb-6 text-gray-800">
           Add New Item
         </h1>
 
-        {/* Form */}
+
         <form className="flex flex-col space-y-4" action={createItemAction}>
-          {/* Item Name */}
+
           <div>
             <label className="block text-gray-600 mb-1">Item Name</label>
             <Input
@@ -26,7 +26,7 @@ export default async function CreatePage() {
             />
           </div>
 
-          {/* Price */}
+
           <div>
             <label className="block text-gray-600 mb-1">Price (in cents)</label>
             <Input
@@ -38,7 +38,7 @@ export default async function CreatePage() {
             />
           </div>
 
-          {/* Image URL */}
+
           <div>
             <label className="block text-gray-600 mb-1">Image URL</label>
             <Input
@@ -49,7 +49,7 @@ export default async function CreatePage() {
             />
           </div>
 
-          {/* Item Type */}
+
           <div>
             <label className="block text-gray-600 mb-1">Type</label>
             <select

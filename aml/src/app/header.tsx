@@ -8,7 +8,7 @@ import Link from "next/link";
 export async function Header() {
   const session = await auth();
 
-  // Safely access the role using a type assertion or optional chaining
+
   const userRole = (session?.user as { role?: string })?.role;
 
   return (

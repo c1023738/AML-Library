@@ -9,14 +9,14 @@ import { pageTitleStyles } from "@/styles";
 export default async function HomePage() {
   const session = await auth();
 
-  // Check if the items already exist in the database
+
   const existingItems = await database.query.items.findMany();
   if (existingItems.length === 0) {
-    // Only insert if no items exist
+
     await database.insert(items).values([
       {
         name: "The Great Gatsby",
-        price: 1500, // Price in cents
+        price: 1500, 
         image: "/images/great-gatsby.jpg",
         type: "book",
         author: "F. Scott Fitzgerald",
@@ -54,7 +54,7 @@ export default async function HomePage() {
     ]);
   }
 
-  // Fetch all items to display
+
   const allItems = await database.query.items.findMany();
 
   return (

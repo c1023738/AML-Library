@@ -25,14 +25,14 @@ const ContactPage = () => {
 
     emailjs
       .send(
-        "service_fehfykt", // Your Email.js Service ID
-        "template_wk3jz8m", // Your Email.js Template ID
+        "service_fehfykt", 
+        "template_wk3jz8m", 
         {
           from_name: formData.name,
           from_email: formData.email,
           message: formData.message,
         },
-        "hD8pRTXUu_AXwtp6-" // Your Email.js Public Key
+        "hD8pRTXUu_AXwtp6-" 
       )
       .then(
         () => {
@@ -48,15 +48,15 @@ const ContactPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 p-4">
       <title>Support</title>
-      {/* Page Title */}
+
       <h1 className="text-4xl font-bold mb-6 text-gray-800">Contact Us</h1>
 
-      {/* Contact Form */}
+
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-2xl"
       >
-        {/* Name Field */}
+
         <div className="mb-6">
           <label
             className="block text-gray-600 text-lg font-semibold mb-2"
@@ -96,7 +96,7 @@ const ContactPage = () => {
           />
         </div>
 
-        {/* Message Field */}
+
         <div className="mb-6">
           <label
             className="block text-gray-600 text-lg font-semibold mb-2"
@@ -116,7 +116,6 @@ const ContactPage = () => {
           ></textarea>
         </div>
 
-        {/* Submit Button */}
         <div className="flex justify-center">
           <button
             type="submit"
@@ -127,7 +126,7 @@ const ContactPage = () => {
         </div>
       </form>
 
-      {/* Status Message */}
+
       {status && (
         <p className="mt-6 text-lg font-medium text-gray-700">{status}</p>
       )}

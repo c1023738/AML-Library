@@ -66,20 +66,20 @@ export const verificationTokens = pgTable(
 
 export const items = pgTable("aml_item", {
   id: serial("id").primaryKey(),
-  name: text("name").notNull(), // General name of the item
-  price: integer("price").notNull(), // Price in cents or units
-  image: text("image"), // URL for the item image
-  type: text("type").notNull(), // Type of the item: 'book', 'game', 'dvd', 'cd'
-  // Additional details for books, games, DVDs, and CDs
-  author: text("author"), // Author (for books)
-  publisher: text("publisher"), // Publisher (for games, DVDs, or CDs)
-  releaseDate: timestamp("release_date", { mode: "date" }), // Release date
-  description: text("description"), // General description
+  name: text("name").notNull(), 
+  price: integer("price").notNull(),
+  image: text("image"), 
+  type: text("type").notNull(), 
+
+  author: text("author"), 
+  publisher: text("publisher"), 
+  releaseDate: timestamp("release_date", { mode: "date" }), 
+  description: text("description"),
 });
 
 export const reservations = pgTable("aml_reservations", {
   id: serial("id").primaryKey(),
-  itemId: integer("itemId") // FIX: Changed to integer to match items.id
+  itemId: integer("itemId") 
     .notNull()
     .references(() => items.id, { onDelete: "cascade" }),
   userId: text("userId")
@@ -89,7 +89,7 @@ export const reservations = pgTable("aml_reservations", {
   endDate: timestamp("endDate", { mode: "date" }).notNull(),
 });
 
-// Define relations
+
 export const reservationRelations = relations(reservations, ({ one }) => ({
   item: one(items, {
     fields: [reservations.itemId],

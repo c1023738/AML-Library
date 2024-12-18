@@ -12,11 +12,11 @@ export default async function AccountPage() {
     throw new Error("Unauthorized");
   }
 
-  // Fetch the reservations for the logged-in user
+ 
   const userReservations = await database.query.reservations.findMany({
     where: eq(reservations.userId, session.user.id),
     with: {
-      item: true, // Join with the items table to fetch item details
+      item: true, 
     },
   });
 
