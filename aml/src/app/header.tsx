@@ -8,7 +8,6 @@ import Link from "next/link";
 export async function Header() {
   const session = await auth();
 
-
   const userRole = (session?.user as { role?: string })?.role;
 
   return (
@@ -41,6 +40,10 @@ export async function Header() {
                 <Link href="/items/create">Add Item</Link>
               </Button>
             )}
+
+            <Button variant="link" asChild>
+              <Link href="/Admin">Admin</Link>
+            </Button>
           </div>
         </div>
 
