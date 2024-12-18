@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Item } from "@/db/schema";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
@@ -17,6 +16,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Item } from "@/db/schema";
 
 export function ItemCard({
   item,
@@ -29,28 +29,25 @@ export function ItemCard({
     existingReservation?.startDate || ""
   );
   const [endDate, setEndDate] = useState(existingReservation?.endDate || "");
-  const [error, setError] = useState(""); // For displaying error messages
+  const [error, setError] = useState("");
 
-  // Get today's date in YYYY-MM-DD format
   const today = new Date().toISOString().split("T")[0];
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Convert the date strings to Date objects for comparison
     const start = new Date(startDate);
     const end = new Date(endDate);
 
-    // Check if the End Date is after the Start Date
     if (end <= start) {
       setError("End Date must be after Start Date.");
-      return; // Stop the form submission if the dates are invalid
+      return;
     }
 
-    setError(""); // Clear any previous errors
+    setError("");
 
     const formData = new FormData();
-    formData.append("itemId", String(item.id)); // Pass the item's ID
+    formData.append("itemId", String(item.id));
     formData.append("startDate", startDate);
     formData.append("endDate", endDate);
 
@@ -58,68 +55,118 @@ export function ItemCard({
       await createOrUpdateReservation(formData);
       alert("Reservation updated successfully!");
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(
-          err.message || "An error occurred while creating the reservation."
-        );
-      } else {
-        setError("An unknown error occurred.");
-      }
+      setError(
+        err instanceof Error
+          ? err.message || "An error occurred while creating the reservation."
+          : "An unknown error occurred."
+      );
     }
   };
 
   const imgUrl = item.image ?? "/not-found.svg";
 
   return (
-    <div key={item.id} className="border p-8 rounded-xl space-y-2">
-      <Image src={imgUrl} alt="Item Image" width="200" height="200" />
-      <h2 className="text-xl font-bold">{item.name}</h2>
+    <div className="border p-4 rounded-lg shadow-md transition-transform transform hover:scale-105 bg-white max-h-96">
+      <Image
+        src={imgUrl}
+        alt="Item Image"
+        width={200}
+        height={200}
+        className="rounded-lg mx-auto"
+      />
+      <h2 className="text-xl font-semibold mt-4 text-gray-800 text-center">
+        {item.name}
+      </h2>
 
-      {/* Dialog Box */}
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">Reserve</Button>
+          <Button variant="outline" className="mt-4 w-full">
+            {existingReservation ? "Update Reservation" : "Reserve"}
+          </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-md">
+
+        {/* Reservation Dialog */}
+        <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto p-4">
           <DialogHeader>
-            <DialogTitle>
+            <DialogTitle className="text-lg font-semibold text-center">
               {existingReservation ? "Update Reservation" : "Reserve"}{" "}
               {item.name}
             </DialogTitle>
-            <DialogDescription>
-              Enter the reservation details below.
+            <DialogDescription className="text-sm text-center leading-tight">
+              View the item and enter reservation details below.
             </DialogDescription>
           </DialogHeader>
 
+          {/* Image */}
+          <div className="flex justify-center my-2">
+            <Image
+              src={imgUrl}
+              alt="Item Image"
+              width={150}
+              height={150}
+              className="rounded-lg"
+            />
+          </div>
+
+          {/* Item Details */}
+          <div className="space-y-1 text-sm text-gray-700 mb-2 leading-tight">
+            <p className="mb-1">
+              <span className="font-medium">Type:</span> {item.type}
+            </p>
+            {item.author && (
+              <p className="mb-1">
+                <span className="font-medium">Author:</span>{" "}
+                <span className="font-semibold">{item.author}</span>
+              </p>
+            )}
+            <p className="mb-1">
+              <span className="font-medium">Publisher:</span>{" "}
+              <span className="font-semibold">{item.publisher}</span>
+            </p>
+            <p className="mb-1">
+              <span className="font-medium">Release Date:</span>{" "}
+              <span className="font-semibold">
+                {item.releaseDate
+                  ? new Date(item.releaseDate).toLocaleDateString()
+                  : "N/A"}
+              </span>
+            </p>
+            <p className="mb-1">
+              <span className="font-medium">Price:</span>{" "}
+              <span className="font-semibold">
+                ${(item.price / 100).toFixed(2)}
+              </span>
+            </p>
+          </div>
+
           {/* Reservation Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid gap-2">
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <div className="grid gap-1">
               <Label htmlFor="startDate">Start Date</Label>
               <Input
                 id="startDate"
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                min={today} // Prevent selecting a date before today
+                min={today}
                 required
               />
             </div>
-            <div className="grid gap-2">
+            <div className="grid gap-1">
               <Label htmlFor="endDate">End Date</Label>
               <Input
                 id="endDate"
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                min={startDate || today} // Prevent selecting a date before the start date
+                min={startDate || today}
                 required
               />
             </div>
 
-            {/* Error Message */}
             {error && <p className="text-red-500 text-sm">{error}</p>}
 
-            <DialogFooter className="sm:justify-end mt-4 space-x-2">
+            <DialogFooter className="sm:justify-end mt-2 space-x-2">
               <Button type="submit">Submit</Button>
               <DialogClose asChild>
                 <Button type="button" variant="secondary">
