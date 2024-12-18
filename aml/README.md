@@ -1,3 +1,7 @@
+Open a new terminal for each part and change the directory with
+
+cd .\aml\
+
 Localhost
 
 npm run dev
