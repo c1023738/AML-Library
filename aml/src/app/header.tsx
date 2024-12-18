@@ -8,6 +8,9 @@ import Link from "next/link";
 export async function Header() {
   const session = await auth();
 
+  // Safely access the role using a type assertion or optional chaining
+  const userRole = (session?.user as { role?: string })?.role;
+
   return (
     <div className="bg-gray-100 border-b py-6">
       <div className="container mx-auto flex justify-between items-center">
@@ -21,7 +24,8 @@ export async function Header() {
               <Link href="/Explore">Explore</Link>
             </Button>
 
-            {/* Conditionally show "Account" button if logged in */}
+
+
             {session && (
               <Button variant="link" asChild>
                 <Link href="/Account">Account</Link>
@@ -31,9 +35,13 @@ export async function Header() {
             <Button variant="link" asChild>
               <Link href="/Support">Support</Link>
             </Button>
-            <Button variant="link" asChild>
-              <Link href="/items/create">Add Item</Link>
-            </Button>
+
+       
+            {userRole === "admin" && (
+              <Button variant="link" asChild>
+                <Link href="/items/create">Add Item</Link>
+              </Button>
+            )}
           </div>
         </div>
 
