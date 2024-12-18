@@ -40,10 +40,11 @@ export async function Header() {
                 <Link href="/items/create">Add Item</Link>
               </Button>
             )}
-
-            <Button variant="link" asChild>
-              <Link href="/Admin">Admin</Link>
-            </Button>
+            {userRole === "admin" && (
+              <Button variant="link" asChild>
+                <Link href="/Admin">Admin</Link>
+              </Button>
+            )}
           </div>
         </div>
 
